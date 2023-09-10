@@ -47,16 +47,17 @@ We run experiments on one baseline and two models. The baseline we chose is the 
 
 ## How to use the code
 
-### Files organization
+### Running the main script
+
+### Code organization
 In the following, we explain how to finetune/pretrain/distil GPT2 architectures. Connecting to the huggingface repo is necessary while downloading the tokenizer, but this is not possible with due to the company's proxy. Users can follow these steps to deactivate the SSL verification from the environment side:
 1- If you are using a `conda` environment, go to `~/.conda/envs/<NAMEOFYOURENVIRONEMNT>/lib/python3.8/site-packages/requests/sessions.py`.
 2- Search for `self.verify = True`.
 3- Change it to `self.verify = False`.
 
+### Modules
 
 ### The configuration file
-
-
 
 
 **Note**: in order to reproduce our best model, please use the intial weights at `/media/data/yassir/truncated_models/gpt2-alt/`.
@@ -75,7 +76,7 @@ The table below shows the results we obtained.
 | CatBoostClassifier (smiles only) | 0.86 | 0.49 | **0.95** | 0.56 |
 | ChemBertA (`seyonec/PubChem10M_SMILES_BPE_396_250`) | **0.87** | **0.60** | 0.93 | **0.63** |
 
-As shown in the results, the baseline model is pretty strong, although it only uses smiles embeddings. The CatBoostClassifier performs better when fed with smiles embedding only, which might question the usefulness of other features (provided that CatBoost models handle categorical, continous and embedding data). However, since we did not explore this problem in depth, nor did we perform hyper-parameter finetuning, we cannot draw a conclusion yet. Despite only using the smiles features, the ChemBertA model outperforms all others, confirming the superiority of large pre-trained language models.
+As shown in the results, the baseline model is pretty strong, although it only uses smiles embeddings. The CatBoostClassifier performs better when fed with smiles embedding only, which might question the usefulness of other features (provided that CatBoost models handle categorical, continous and embedding data). However, as we did not explore this problem in depth, nor did we perform hyper-parameter finetuning, we cannot draw a conclusion yet. Despite only using the smiles features, the ChemBertA model outperforms all others, confirming the superiority of large pre-trained language models.
 
 ## Next steps
 As next steps, we plan to propose an architecture that is able to both leverage pre-trained models (ChemBertA) and make use of other features (continuous and categorical). For that, we need to embed categorical data, rescale continuous variables and make use of dense layers to conveniently process the data. The figure below describes the full proposed architecture:
