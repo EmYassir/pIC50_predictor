@@ -1,0 +1,25 @@
+[
+    {
+        "name":"ChemBerta",
+        "type":"ChemBerta",
+        "model_params": {
+            "model_type":"roberta",
+            "model_name":"seyonec/SMILES_tokenized_PubChem_shard00_160k",
+            "num_labels":2, 
+            "use_cuda":true
+        },
+        "model_feats": [],
+        "train_params": {
+            "args": {
+                "num_train_epochs": 1, 
+                "evaluate_each_epoch": true, 
+                "evaluate_during_training": true,
+                "evaluate_during_training_verbose": true, 
+                "no_save": true, 
+                "auto_weights": true
+                }
+        },
+        "overwrite_output_dir": true,
+        "weights": null
+    }
+]

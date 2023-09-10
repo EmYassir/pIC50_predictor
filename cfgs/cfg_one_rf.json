@@ -1,0 +1,47 @@
+[
+    {
+        "name":"RandomForest",
+        "type":"RandomForest",
+        "model_params": {
+            "n_estimators": 100,  
+            "criterion": "entropy"
+        },
+        "model_feats": [
+        ],
+        "train_params": {
+        },
+        "weights": null
+    },
+    {
+        "name":"CatBoostClassifierAllFeats",
+        "type":"CatBoostClassifier",
+        "model_params": {
+            "iterations": 200,
+            "learning_rate": 0.008,
+            "depth": 11,
+            "subsample": 0.08891930017791809,
+            "colsample_bylevel": 0.5898262004884961,
+            "min_data_in_leaf": 47
+        },
+        "model_feats": ["smiles_fp","molecular_weight","n_hba","n_hbd","logp"],
+        "train_params": {
+            "embedding_features": [0]
+        },
+        "weights": null
+    },
+    {
+        "name":"CatBoostClassifierSingleFeat",
+        "type":"CatBoostClassifier",
+        "model_params": {
+            "iterations": 166,
+            "learning_rate": 0.05,
+            "depth": 11,
+            "subsample": 0.08891930017791809,
+            "colsample_bylevel": 0.5898262004884961,
+            "min_data_in_leaf": 47
+        },
+        "model_feats": [],
+        "train_params": {},
+        "weights": null
+    }
+]
