@@ -22,8 +22,8 @@ We hence kept the following features for the rest of the experiment:
 
 ### Data augmentation
 To better make use of features and allow for performing classification tasks, we augment the data as follows:
-- smiles_fp: embedding for `smiles` data. Calculated using functions provided by [this tutorial](https://projects.volkamerlab.org/teachopencadd/talktorials/T007_compound_activity_machine_learning.html).
-- labels: True when `pIC50` > 8, false otherwise.
+- smiles_fp: embedding for *smiles* data. Calculated using functions provided by [this tutorial](https://projects.volkamerlab.org/teachopencadd/talktorials/T007_compound_activity_machine_learning.html).
+- labels: True when *pIC50* > 8, false otherwise.
 
 ### Data visualization
 We vizualise the data by plotting box-plots to better assess the spread of values. Below is the figure showing categorical data *n_hba* and *n_hbd*:
