@@ -63,8 +63,8 @@ There are few specific dependencies to install before executing the code, you ca
 ### Code organization
 The main script `main.py` is at the root of the project. There are three additional folders:
 * src: contains two modules:
-  1- models.py: defines the main classes that are used in the experiments. The code wraps the models to allow for using them in a uniform manner.
-  2- utils.py: defines some routines/utilities used in the main program. 
+    * models.py: defines the main classes that are used in the experiments. The code wraps the models to allow for using them in a uniform manner.
+    * utils.py: defines some routines/utilities used in the main program. 
 * data: contains the datasets (main, train and dev) formated as csv files.
 * cfgs: contains configurations files. These are necessary for training/evaluation as they describe the parameters/hyperparameters of the employed models. More details about configuration files are to come in the next sections.
 
