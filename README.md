@@ -8,7 +8,7 @@ This folder contains the original code used to build a model selection and infer
 ### Data cleaning
 The dataset yields tabular data which consists in 10 columns. We get rid of the following columns for the sake of training:
 - molecule_chembl_id: Ids of the molecules.
-- IC50: related to `pIC50`, which we are trying to predict.
+- IC50: related to *pIC50*, which we are trying to predict.
 - units: useless in terms of training.
 - ro5_fulfilled: same value (True) for all samples.
 
@@ -50,7 +50,7 @@ We split the dataset into two shards:
 2- Validation set (20% of the data, or 927 samples).
 
 ## Models
-We run experiments on one baseline and two models. The baseline we chose is the random forest ([Scikit-learn implementation](https://scikit-learn.org/stable/)) as it is suggested by [this article](https://projects.volkamerlab.org/teachopencadd/talktorials/T007_compound_activity_machine_learning.html). The two other models we chose are [CatBoostClassifier](https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier) and [ChemBertA](https://arxiv.org/abs/2010.09885). For the latter, we are using [simpletransformers implementation](https://github.com/ThilinaRajapakse/simpletransformers). 
+We run experiments on one baseline and two models. The baseline we chose is the random forest ([Scikit-learn implementation](https://scikit-learn.org/stable/)) as it is suggested by [this article](https://projects.volkamerlab.org/teachopencadd/talktorials/T007_compound_activity_machine_learning.html). The two other models we chose are [CatBoostClassifier](https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier) and [ChemBertA (seyonec/PubChem10M_SMILES_BPE_396_250)](https://arxiv.org/abs/2010.09885). For the latter, we are using [simpletransformers implementation](https://github.com/ThilinaRajapakse/simpletransformers). 
 
 ## How to run the code
 This section describes the steps to execute in order to run training and or evaluation of the aforementioned models. The data preprocessing has been done beforehand, but the functions/routines that served that purpose are provided in the code.
@@ -103,7 +103,60 @@ python main.py --configs_path ./cfgs/cfg_four_models.json \
 ```
 
 ### The configuration file
+The configuration file comes in json format. It yields a list of models sub-configurations that describe hyperparameters, training parameters plus some additional options. Each model configuration has the following fields:
+* name: Name of the model. Could be any string.
+* type: Type of the model. Supported types are *RandomForest*, *CatBoostClassifier* and *ChemBerta*.
+* model_params: Parameters of the model. Each model has specific initialization arguments.
+* model_feats: Features to use when training. If left empty, only *smiles_fp* (smiles' embeddings) are used.
+* train_params: Training parameters of the model. Each model has specific ones.
+* overwrite_output_dir: Option allowing to erase previous data in case the output folder has the same name. Only used in combination with *ChemBertA* model.
+* weights: model's saved weights. This information is mandatory when only `--valid` is active. 
 
+An example of a configuration file with two models would be the following:
+```
+[
+    {
+        "name":"CatBoostClassifierAllFeats",
+        "type":"CatBoostClassifier",
+        "model_params": {
+            "iterations": 200,
+            "learning_rate": 0.008,
+            "depth": 11,
+            "subsample": 0.08891930017791809,
+            "colsample_bylevel": 0.5898262004884961,
+            "min_data_in_leaf": 47
+        },
+        "model_feats": ["smiles_fp","molecular_weight","n_hba","n_hbd","logp"],
+        "train_params": {
+            "embedding_features": [0]
+        },
+        "weights": null
+    },
+    {
+        "name":"ChemBerta",
+        "type":"ChemBerta",
+        "model_params": {
+            "model_type":"roberta",
+            "model_name":"seyonec/SMILES_tokenized_PubChem_shard00_160k",
+            "num_labels":2, 
+            "use_cuda":true
+        },
+        "model_feats": [],
+        "train_params": {
+            "args": {
+                "num_train_epochs": 15, 
+                "evaluate_each_epoch": true, 
+                "evaluate_during_training": true,
+                "evaluate_during_training_verbose": true, 
+                "no_save": true, 
+                "auto_weights": true
+                }
+        },
+        "overwrite_output_dir": true,
+        "weights": null
+    }
+]
+```
 
 ### Training and evaluation 
 The tables below present the hyper-parameters used for each model:
@@ -146,7 +199,7 @@ The table below shows the results we obtained:
 | Random Forest (baseline) | 0.86 | 0.57 | 0.93 | 0.61 |
 | CatBoostClassifier (all features) | 0.85 | 0.43 | **0.95** | 0.53 |
 | CatBoostClassifier (smiles only) | 0.86 | 0.49 | **0.95** | 0.56 |
-| ChemBertA ("seyonec/PubChem10M_SMILES_BPE_396_250") | **0.87** | **0.60** | 0.93 | **0.63** |
+| ChemBertA | **0.87** | **0.60** | 0.93 | **0.63** |
 
 As shown in the results, the baseline model is pretty strong, although it only uses smiles' embeddings. The CatBoostClassifier performs better when fed with smiles embedding only, which might question the usefulness of other features (provided that CatBoost models handle categorical, continous and embedding data). However, as we did not explore this problem in depth, nor did we perform hyper-parameter finetuning, we cannot draw a conclusion yet. Despite only using the smiles features, the ChemBertA model outperforms all others, asserting the superiority of pre-trained language models in molecules predictions.
 
@@ -158,6 +211,6 @@ As next steps, we plan to propose an architecture that is able to both leverage 
 We also plan to put some effort in finetuning hyper-parameters, as the performance gains could be non-negligible. 
 
 ## References
-. [ChemBERTa: Large-Scale Self-Supervised Pretraining for Molecular Property Prediction](https://arxiv.org/abs/2010.09885)
-. [T007 · Ligand-based screening: machine learning](https://projects.volkamerlab.org/teachopencadd/talktorials/T007_compound_activity_machine_learning.html)
-. [simpletransformers implementation](https://github.com/ThilinaRajapakse/simpletransformers)
+* [ChemBERTa: Large-Scale Self-Supervised Pretraining for Molecular Property Prediction](https://arxiv.org/abs/2010.09885)
+* [T007 · Ligand-based screening: machine learning](https://projects.volkamerlab.org/teachopencadd/talktorials/T007_compound_activity_machine_learning.html)
+* [simpletransformers implementation](https://github.com/ThilinaRajapakse/simpletransformers)
