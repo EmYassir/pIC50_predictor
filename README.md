@@ -1,5 +1,4 @@
-# pIC50_predictor
-Epidermal Growth Factor Receptor (EGFR) kinase detection
+# Epidermal Growth Factor Receptor (EGFR) kinase detection
 
 ## About
 This folder contains the original code used to build a model selection and inference pipeline that can generate the most accurate predictor for pIC50. It uses the [EGFR_compounds_lipinski dataset](https://raw.githubusercontent.com/volkamerlab/teachopencadd/master/teachopencadd/talktorials/T002_compound_adme/data/EGFR_compounds_lipinski.csv) for training and evaluation.
