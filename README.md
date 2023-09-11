@@ -182,9 +182,9 @@ The rest of hyperparameters/parameters values are the default ones.
 The rest of hyperparameters/parameters values are the default ones.
 
 4- ChemBertA
-| Architecture | Layers | Hidden size | Inter. size | Att. heads | Vocab. size | Dropout prob. | epochs | learning rate | Optimizer |
-|  :---: |  :---: |  :---:  | :---: |  :---: |  :---:  |   :---:  |   :---:  | :---:  |   :---:  | 
-| "Roberta" | 6 | 768 | 3072 | 12 |  52000 |  0.1 | 15 | 3e-4 | "AdamW" |
+| Architecture | Layers | Hidden size | Inter. size | Att. heads | Vocab. size | Dropout prob. | epochs | learning rate | Optimizer | Scheduler |
+|  :---: |  :---: |  :---:  | :---: |  :---: |  :---:  |   :---:  |   :---:  | :---:  |   :---:  |  :---:  | 
+| "Roberta" | 6 | 768 | 3072 | 12 |  52000 |  0.1 | 15 | 3e-4 | AdamW | Linear with warmup |
 
 The rest of hyperparameters/parameters values are the default ones.
 
