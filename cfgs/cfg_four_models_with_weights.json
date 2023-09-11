@@ -1,0 +1,70 @@
+[
+    {
+        "name":"RandomForest",
+        "type":"RandomForest",
+        "model_params": {
+            "n_estimators": 100,  
+            "criterion": "entropy"
+        },
+        "model_feats": [
+        ],
+        "train_params": {
+        },
+        "weights": "./output_dir/RandomForest_20230911-065307"
+    },
+    {
+        "name":"CatBoostClassifierAllFeats",
+        "type":"CatBoostClassifier",
+        "model_params": {
+            "iterations": 200,
+            "learning_rate": 0.008,
+            "depth": 11,
+            "subsample": 0.08891930017791809,
+            "colsample_bylevel": 0.5898262004884961,
+            "min_data_in_leaf": 47
+        },
+        "model_feats": ["smiles_fp","molecular_weight","n_hba","n_hbd","logp"],
+        "train_params": {
+            "embedding_features": [0]
+        },
+        "weights": "./output_dir/CatBoostClassifierAllFeats_20230911-065312"
+    },
+    {
+        "name":"CatBoostClassifierSingleFeat",
+        "type":"CatBoostClassifier",
+        "model_params": {
+            "iterations": 166,
+            "learning_rate": 0.05,
+            "depth": 11,
+            "subsample": 0.08891930017791809,
+            "colsample_bylevel": 0.5898262004884961,
+            "min_data_in_leaf": 47
+        },
+        "model_feats": [],
+        "train_params": {},
+        "weights": "./output_dir/CatBoostClassifierSingleFeat_20230911-065345"
+    },
+    {
+        "name":"ChemBerta",
+        "type":"ChemBerta",
+        "model_params": {
+            "model_type":"roberta",
+            "model_name":"seyonec/SMILES_tokenized_PubChem_shard00_160k",
+            "num_labels":2, 
+            "use_cuda":true
+        },
+        "model_feats": [],
+        "train_params": {
+            "args": {
+                "num_train_epochs": 15, 
+                "evaluate_each_epoch": true, 
+                "evaluate_during_training": true,
+                "evaluate_during_training_verbose": true, 
+                "no_save": true, 
+                "auto_weights": true
+                }
+        },
+        "overwrite_output_dir": true,
+        "weights": "./output_dir/ChemBerta_20230911-070230"
+    }
+]

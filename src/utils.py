@@ -130,10 +130,10 @@ def parse_models(cfg_dict):
     return models
 
 
-def prepare_dataset(path, featurize=False, tokenize=False, tokenizer=None):
-    df = load_dataset(path)
-    if featurize:
-        df["smiles_fp"] = df["smiles"].apply(smiles_to_fp, args=("maccs", 2048))
+
+def process_dataset(df, tokenize=False, tokenizer=None):
+    
+    df["smiles_fp"] = df["smiles"].apply(smiles_to_fp, args=("maccs", 2048))
     if tokenize:
         if not tokenizer:
             raise ValueError("Variable 'tokenizer' should be set when parameter 'tokenize' is True.")

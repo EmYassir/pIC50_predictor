@@ -66,7 +66,7 @@ class RF(Model):
             pkl.dump(self.model, fp)
 
     def load_weights(self, path):
-        with open(path, 'wb') as fp:
+        with open(path, 'rb') as fp:
             self.model = pkl.load(fp)
 
 
