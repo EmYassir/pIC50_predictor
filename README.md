@@ -46,8 +46,8 @@ Going with regression might not be ideal, as we can achieve good regression perf
 
 ### Data split
 We split the dataset into two shards:
-1- Training set (80% of the data, or 3708 samples).
-2- Validation set (20% of the data, or 927 samples).
+* Training set (80% of the data, or 3708 samples).
+* Validation set (20% of the data, or 927 samples).
 
 ## Models
 We run experiments on one baseline and two models. The baseline we chose is the random forest ([Scikit-learn implementation](https://scikit-learn.org/stable/)) as it is suggested by [this article](https://projects.volkamerlab.org/teachopencadd/talktorials/T007_compound_activity_machine_learning.html). The two other models we chose are [CatBoostClassifier](https://catboost.ai/en/docs/concepts/python-reference_catboostclassifier) and [ChemBertA (seyonec/PubChem10M_SMILES_BPE_396_250)](https://arxiv.org/abs/2010.09885). For the latter, we are using [simpletransformers implementation](https://github.com/ThilinaRajapakse/simpletransformers). 
