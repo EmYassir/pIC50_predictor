@@ -69,15 +69,15 @@ The main script `main.py` is at the root of the project. There are three additio
 
 ### Running the main script
 The main script yields several options which are:
-    * `--configs_path`: Path to the configurations file. A single configuration file can contain multiple models descriptions.
-    * `--output_dir`: Output directory.
-    * `--train`: If active, trains the models on the train set.
-    * `--valid`: If active, evaluates the models on the validation set. If `--train` is not active, then models configurations should describe paths to the models' saved weights.
-    * `--train_set`: Path to training set. Mandatory if `--train` is active.
-    * `--valid_set`: Path to validation set. Mandatory if `--valid` is active.
-    * `--save`: If set, saves the models after training.
-    * `--seed`: If provided, sets the seed to a new value. Default is 99.
-    * `--h`: Displays the help menu.
+1. `--configs_path`: Path to the configurations file. A single configuration file can contain multiple models descriptions.
+2. `--output_dir`: Output directory.
+3. `--train`: If active, trains the models on the train set.
+4. `--valid`: If active, evaluates the models on the validation set. If `--train` is not active, then models configurations should describe paths to the models' saved weights.
+5. `--train_set`: Path to training set. Mandatory if `--train` is active.
+6. `--valid_set`: Path to validation set. Mandatory if `--valid` is active.
+7. `--save`: If set, saves the models after training.
+8. `--seed`: If provided, sets the seed to a new value. Default is 99.
+9. `--h`: Displays the help menu.
 
 An example of command running training and evaluation would be the following:
 ```
